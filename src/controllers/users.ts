@@ -17,10 +17,14 @@ class UsersController {
       if (user.password === password) {
         res.statusCode = 200;
         res.json(user);
+
+        return;
       }
 
       res.statusCode = 200;
       res.json('password not valid');
+
+      return;
     }
     
     res.statusCode = 200;
@@ -34,6 +38,8 @@ class UsersController {
     if (isExist) {
       res.statusCode = 200;
       res.json('user with such email already exist');
+
+      return;
     }
 
     const contact = await usersService.createContact(req.body);

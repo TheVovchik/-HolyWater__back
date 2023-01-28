@@ -19,6 +19,8 @@ class EventsController {
     if (!events) {
       res.statusCode = 404;
       res.json([]);
+
+      return;
     }
 
     res.statusCode = 200;
@@ -31,6 +33,8 @@ class EventsController {
     if (!event) {
       res.statusCode = 400;
       res.json('something went wrong');
+
+      return;
     }
     
     res.statusCode = 200;
@@ -48,6 +52,8 @@ class EventsController {
     if (!event) {
       res.statusCode = 400;
       res.json('something went wrong');
+
+      return;
     }
     
     res.statusCode = 200;
