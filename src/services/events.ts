@@ -31,6 +31,16 @@ class EventsService {
 
     return event;
   }
+
+  async removeEvent(eventId: number) {
+    const result = await Events.destroy({
+      where: {
+        id: eventId,
+      },
+    });
+
+    return result;
+  }
 }
 
 export const eventsService = new EventsService();

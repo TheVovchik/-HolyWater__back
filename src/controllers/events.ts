@@ -59,6 +59,25 @@ class EventsController {
     res.statusCode = 200;
     res.json(event);
   };
+
+  async deleteEvent(req: Request, res: Response) {
+    const eventId = req.query.eventId;
+
+    let result;
+    if (eventId) {
+      result = await eventsService.removeEvent(+eventId);
+    }
+
+    if (!result) {
+      res.statusCode = 400;
+      res.json('something went wrong');
+
+      return;
+    }
+    
+    res.statusCode = 200;
+    res.json('success');
+  };
 }
 
 export const eventsController = new EventsController();
