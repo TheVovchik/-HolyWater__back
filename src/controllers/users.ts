@@ -21,13 +21,13 @@ class UsersController {
         return;
       }
 
-      res.statusCode = 200;
+      res.statusCode = 400;
       res.json('password not valid');
 
       return;
     }
     
-    res.statusCode = 200;
+    res.statusCode = 401;
     res.json('email not valid');
   };
 
@@ -36,7 +36,7 @@ class UsersController {
     const isExist = await usersService.getOne(email);
 
     if (isExist) {
-      res.statusCode = 200;
+      res.statusCode = 400;
       res.json('user with such email already exist');
 
       return;
@@ -46,7 +46,7 @@ class UsersController {
 
     if (!contact) {
       res.statusCode = 400;
-      res.json({ error: 'something went wrong' });
+      res.json('something went wrong');
 
       return;
     }

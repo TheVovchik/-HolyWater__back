@@ -1,0 +1,330 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Holy Water test task Calendar REST API",
+    "description": "CRUD style API in Node JS using TS and Express JS",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "holy-water.onrender.com",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the data base"
+    },
+    {
+      "name": "Events",
+      "description": "API for events in the data base"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user we want to create",
+            "schema": {
+              "$ref": "#/definitions/newUser"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Post new user",
+        "responses": {
+          "200" : {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "400" : {
+            "description": "user with such email already exist"
+          },
+          "404" : {
+            "description": "something went wrong"
+          }
+        }
+      }
+    },
+    "/users/validate": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user we want to validate",
+            "schema": {
+              "$ref": "#/definitions/newUser"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Validate user",
+        "responses": {
+          "200" : {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "400" : {
+            "description": "password not valid"
+          },
+          "401" : {
+            "description": "email not valid"
+          }
+        }
+      }
+    },
+    "/events?{year}&{month}&{userId}": {
+      "parameters": [
+        {
+          "name": "year",
+          "in": "query",
+          "description": "searched year",
+          "type": "string"
+        },
+        {
+          "name": "month",
+          "in": "query",
+          "description": "searched month",
+          "type": "string"
+        },
+        {
+          "name": "userId",
+          "in": "query",
+          "description": "searched user id",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        
+        "summary": "Get all events by date",
+        "responses": {
+          "200" : {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/event"
+            }
+          },
+          "404" : {
+            "description": "[]"
+          }
+        }
+      }
+    },
+    "/events": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "event we want to add",
+            "schema": {
+              "$ref": "#/definitions/newEvent"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Create a new event",
+        "responses": {
+          "200" : {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/event"
+            }
+          },
+          "400" : {
+            "description": "something went wrong"
+          }
+        }
+      }
+    },
+    "/events?{eventId}": {
+      "parameters": [
+        {
+          "name": "eventId",
+          "in": "query",
+          "description": "event id",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "event we want to add",
+            "schema": {
+              "$ref": "#/definitions/newEvent"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Update an existed event",
+        "responses": {
+          "200" : {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/event"
+            }
+          },
+          "400" : {
+            "description": "something went wrong"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Events"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Delete an existed event",
+        "responses": {
+          "200" : {
+            "description": "success"
+          },
+          "400" : {
+            "description": "something went wrong"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "user": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "primary key, autoincrement"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "newUser": {
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "event": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "primary key, autoincrement"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer"
+        },
+        "month": {
+          "type": "integer"
+        },
+        "day": {
+          "type": "integer"
+        },
+        "time": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "newEvent": {
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer"
+        },
+        "month": {
+          "type": "integer"
+        },
+        "day": {
+          "type": "integer"
+        },
+        "time": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
