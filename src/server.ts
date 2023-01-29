@@ -16,7 +16,7 @@ router.post('/users', usersController.postUser);
 router.get('/events', eventsController.takeEvents)
 router.post('/events', eventsController.postEvent);
 router.patch('/events', eventsController.patchEvent);
-router.delete('/events', eventsController.patchEvent);
+router.delete('/events', eventsController.deleteEvent);
 
 app.listen(5000, () => (
   console.log('server is running')
